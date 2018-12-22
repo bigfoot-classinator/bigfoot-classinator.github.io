@@ -1,0 +1,58 @@
+<html lang="en">
+  <head>
+    <title>Bigfoot Classinator</title>
+    <link rel="stylesheet" href="site.css">
+    <meta charset="UTF-8">
+  </head>
+  <body>
+
+    <header>
+        <h1 class="title">Bigfoot Classinator</h1>
+    </header>
+
+    <main id="app">
+      <section>
+
+        <h1>Classes of Bigfoot Sightings</h1>
+
+        <ul>
+          <li><strong>Class A</strong>: I saw bigfoot</li>
+          <li><strong>Class B</strong>: I saw evidence of bigfoot</li>
+          <li><strong>Class C</strong>: Somebody told me they saw bigfoot</li>
+        </ul>
+
+        <h1>Classinate</h1>
+
+        <p>Enter your story below and see what class your sighting is
+            using the power of <em>machine learning</em>.</p>
+
+        <div>
+            <textarea id="report" placeholder="Enter the text of your bigfoot sighting here"></textarea>
+        </div>
+
+        <button id="classinate">Classinate My Sighting!</button>
+
+        <p class="message"></p>
+
+      </section>
+
+      <aside>
+        <img src="sasquatch-face.jpg">
+        <p class="message"></p>
+      </aside>
+
+    </main>
+
+    <footer>
+      <p id="powered-by"><a href="https://www.datarobot.com/">Powered by<br><img src="datarobot-logo-light.png"></a></p>
+      <p><a href="https://github.com/guyroyse/beyond-the-model">Source Code</a></p>
+    </footer>
+
+    <script src="settings.js"></script>
+    <script src="app.js"></script>
+    <script>
+      let app = new App();
+    </script>
+
+  </body>
+</html>
