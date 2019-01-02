@@ -90,17 +90,6 @@ footer {
 
 footer p {
   margin: 0px;
-  margin-top: 20px;
-}
-
-footer #powered-by {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 6px;
-}
-
-footer #powered-by a:hover {
-  text-decoration: none;
 }
 
 @media (min-width: 1001px) {
