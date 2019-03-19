@@ -1,83 +1,47 @@
-const WAIT_MESSAGE = "Analyzing your sighting...";
-const ERROR_MESSAGE = "There was an error processing your classination.";
+const ERROR_MESSAGE = "There was an error processing your classination."
+
 const CLASS_MESSAGES = {
     'Class A': "You saw bigfoot! That's a Class A sighting.",
     'Class B': "You found some evidence of bigfoot like a footprint! That's a Class B sighting.",
     'Class C': "Someone told you about seeing bigfoot! That's a Class C sighting"
-};
-
-class App {
-  constructor() {
-    document.addEventListener('DOMContentLoaded', _ => this.onDocumentLoaded())
-  }
-
-  onDocumentLoaded() {
-    this.viewController = new ViewController()
-  }
 }
 
-class View {
-  constructor() {
-    this._reportTextBox = document.getElementById('report')
-    this._messageElements = document.getElementsByClassName('message')
-  }
+document.addEventListener('DOMContentLoaded', onDocumentLoaded)
 
-  get report() {
-    return this._reportTextBox.value
-  }
+let classinateButton, sightingTextBox
 
-  set message(value) {
-    Array.from(this._messageElements)
-      .forEach(element => element.textContent = value);
-  }
+let fetchSettings = {
+  method: 'POST',
+  headers: { "Content-Type": "application/json; charset=utf-8" }
 }
 
-class ViewController {
-  constructor() {
-    this.model = new Model()
-    this.view = new View()
+function onDocumentLoaded() {
+  classinateButton = document.getElementById('classinate')
+  sightingTextBox = document.getElementById('report')
 
-    this.classinateButton = document.getElementById('classinate')
-    this.classinateButton.addEventListener('click', () => this.onClassinateClicked())
-  }
-
-  onClassinateClicked() {
-    this.view.message = WAIT_MESSAGE;
-    this.model.classinate(this.view.report)
-      .then(classination => {
-        console.log(classination);
-        this.view.message = classination.message;
-      })
-      .catch(error => {
-        console.log(error);
-        this.view.message = ERROR_MESSAGE;
-      })
-  }
-
+  classinateButton.addEventListener('click', onClassinateClicked)
 }
 
-class Model {
-  constructor() {
-    this.adapter = new Adapter()
+async function onClassinateClicked() {
+
+  classinateButton.disabled = true
+
+  try {
+
+    fetchSettings.body = JSON.stringify({ sighting: sightingTextBox.value })
+
+    let response = await fetch(CLASSINATE_URL, fetchSettings)
+    let json = await response.json()
+
+    console.log(json);
+
+    alert(CLASS_MESSAGES[json.classination.selected])
+
+  } catch (error) {
+    console.log(error);
+    alert(ERROR_MESSAGE);
   }
 
-  classinate(report) {
-    return this.adapter.classinate({ sighting: report })
-      .then(response => {
-        return {
-          classination: response.classination,
-          message: CLASS_MESSAGES[response.classination.selected]
-        }
-      })
-  }
-}
+  classinateButton.disabled = false
 
-class Adapter {
-  classinate(json) {
-    return fetch(CLASSINATE_URL, {
-      method: 'POST',
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify(json)
-    }).then(response => response.json())
-  }
 }
