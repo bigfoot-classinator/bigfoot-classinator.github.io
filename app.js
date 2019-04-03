@@ -1,10 +1,14 @@
-const ERROR_MESSAGE = "There was an error processing your classination."
+const CLASSINATE_URL = 'https://bigfoot-classinator.herokuapp.com/classinate'
+// const CLASSINATE_URL = 'http://localhost:5000/classinate'
 
 const CLASS_MESSAGES = {
     'Class A': "You saw bigfoot! That's a Class A sighting.",
     'Class B': "You found some evidence of bigfoot like a footprint! That's a Class B sighting.",
     'Class C': "Someone told you about seeing bigfoot! That's a Class C sighting"
 }
+
+const ERROR_MESSAGE = "There was an error processing your classination."
+
 
 document.addEventListener('DOMContentLoaded', onDocumentLoaded)
 
