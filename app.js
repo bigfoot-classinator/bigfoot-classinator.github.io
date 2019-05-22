@@ -1,5 +1,5 @@
-const CLASSINATE_URL = 'https://bigfoot-classinator.herokuapp.com/classinate'
-// const CLASSINATE_URL = 'http://localhost:5000/classinate'
+// const CLASSINATE_URL = 'https://bigfoot-classinator.herokuapp.com/classinate'
+const CLASSINATE_URL = 'http://localhost:5000/classinate'
 
 const CLASS_MESSAGES = {
     'Class A': "You saw bigfoot! That's a Class A sighting.",
@@ -32,7 +32,13 @@ async function onClassinateClicked() {
 
   try {
 
-    fetchSettings.body = JSON.stringify({ sighting: sightingTextBox.value })
+    let coords = await fetchLocation()
+
+    fetchSettings.body = JSON.stringify({
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+      sighting: sightingTextBox.value
+    })
 
     let response = await fetch(CLASSINATE_URL, fetchSettings)
     let json = await response.json()
@@ -48,4 +54,12 @@ async function onClassinateClicked() {
 
   classinateButton.disabled = false
 
+}
+
+async function fetchLocation() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(position => {
+      resolve(position.coords)
+    })
+  })
 }
