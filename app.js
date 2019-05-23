@@ -1,5 +1,4 @@
-// const CLASSINATE_URL = 'https://bigfoot-classinator.herokuapp.com/classinate'
-const CLASSINATE_URL = 'http://localhost:5000/classinate'
+const CLASSINATE_URL = 'https://bigfoot-classinator.herokuapp.com/classinate'
 
 const CLASS_MESSAGES = {
     'Class A': "You saw bigfoot! That's a Class A sighting.",
