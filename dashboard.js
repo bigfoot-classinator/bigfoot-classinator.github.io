@@ -27,9 +27,19 @@ async function onDocumentLoaded() {
 
 async function onMapLoaded(map) {
 
+  let urlParams = new URLSearchParams(window.location.search)
+  let threshold = parseFloat(urlParams.get('threshold')) || 2.0
+  let quantity = parseInt(urlParams.get('quantity')) || 100
+
+  let url = new URL(DASHBOARD_URL)
+  url.searchParams.append('threshold', threshold)
+  url.searchParams.append('quantity', quantity)
+
+  console.log(url)
+
   try {
 
-    let response = await fetch(DASHBOARD_URL)
+    let response = await fetch(url)
     let json = await response.json()
 
     console.log(json);
